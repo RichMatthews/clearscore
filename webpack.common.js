@@ -25,7 +25,7 @@ module.exports = {
     new Visualizer({
       filename: '../webpack-stats.html',
     }),
-    new ExtractTextPlugin('[name]-[contenthash].css'),
+    new ExtractTextPlugin('[name]-[hash].css'),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.PORT': JSON.stringify(process.env.PORT),
@@ -49,12 +49,24 @@ module.exports = {
         },
       },
       {
-        test: /\.s?css$/,
+        test: /\.css$/,
+        include: [/node_modules/, /src/],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader', 'sass-loader'],
+        }),
+      },
+      {
+        test: /\.scss$/,
         include: [/src/],
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: ['css-loader', 'postcss-loader', 'sass-loader'],
         }),
+      },
+      {
+        test: /\.(eot|woff|woff2|ttf|svg|png|jpg|gif)$/,
+        loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]'
       },
       {
         test: /\.(jpe?g|png|gif)$/i,

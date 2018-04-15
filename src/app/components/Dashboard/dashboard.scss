@@ -3,3 +3,24 @@ body {
   background-size: cover;
   background-image: url('/background--dashboard.png');
 }
+
+.dashboardContainer{
+  border: 1px solid white;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: 400px;
+  padding: 10px;
+  width: 400px;
+  .creditGenericText{
+    font-size: 20px;
+    color: white;
+  }
+  .creditScoreNumber{
+    font-size: 90px;
+    color: #c0f074;
+  }
+}
